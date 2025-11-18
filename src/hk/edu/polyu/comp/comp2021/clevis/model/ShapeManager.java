@@ -79,7 +79,7 @@ public class ShapeManager {
         return allShapes;
     }
 
-    public String ShapeAt(double x,double y ){
+    public String shapeAt(double x,double y ){
         List<Shape> ShapeListAll =getAllShapes();
         for(Shape shape : ShapeListAll){
             if(shape.contianspoint(x,y){
