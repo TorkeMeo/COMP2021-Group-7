@@ -89,6 +89,24 @@ public class ShapeManager {
         return null;
     }
 
+    public boolean intersect(String n1Name,String n2Name){
+        Shape n1Shape = getShape(n1Name);
+        Shape n2Shape = getShape(n2Name);
+
+        double[] n1BoundingBox = n1Shape.getBoundingBox();
+        double[] n2BoundingBox = n2Shape.getBoundingBox();
+
+        if(n1BoundingBox[0] - n2BoundingBox[2] <n2BoundingBox[0] &&
+           n1BoundingBox[0] + n1BoundingBox[2] > n2BoundingBox[0] &&
+           n1BoundingBox[1] - n2BoundingBox[3] < n2BoundingBox[1] &&
+           n1BoundingBox[1] + n1BoundingBox[3] > n2BoundingBox[1]){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public void recordCommand(String command) { commandHistory.add(command); }
 
     public List<String> getCommandHistory() { return new ArrayList<>(commandHistory); }
