@@ -79,6 +79,16 @@ public class ShapeManager {
         return allShapes;
     }
 
+    public String ShapeAt(double x,double y ){
+        List<Shape> ShapeListAll =getAllShapes();
+        for(Shape shape : ShapeListAll){
+            if(shape.contianspoint(x,y){
+                return shape.getName();
+            }
+        }
+        return null;
+    }
+
     public void recordCommand(String command) { commandHistory.add(command); }
 
     public List<String> getCommandHistory() { return new ArrayList<>(commandHistory); }
