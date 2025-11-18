@@ -62,6 +62,9 @@ public class Clevis {
                 case "shapeat":
                     processShapeAt(tokens);
                     break;
+                case "intersect":
+                    processIntersect(tokens);
+                    break;
                 case "quit":
                     processQuit();
                     break;
@@ -188,6 +191,19 @@ public class Clevis {
             System.out.println("There is no shape found at point (" + PointXY[1] + "," + PointXY[2] + ").");
         }
         
+    }
+
+    private void processIntersect(String[] tokens){
+        if(tokens.length != 3){
+            throw new IllegalArgumentException("Invalid intersect command format. Please enter: intersect n1 n2");
+        }
+        String[] shapeNames = {tokens[1],tokens[2]);
+        if(ShapeManager.intersect(shapeNames[0],shapeNames[1]){
+            System.out.println("Shape" + shapeNames[0] + "and" + shapeNames[1] + "intersect.");
+        }
+        else{
+            System.out.println("Shape" + shapeNames[0] + "and" + shapeNames[1] + "not intersect.");
+        }
     }
 
     private void isGrouped(String name) {
