@@ -59,6 +59,9 @@ public class Clevis {
                 case "boundingbox":
                     processBoundingBox(tokens);
                     break;
+                case "shapeat":
+                    processShapeAt(tokens);
+                    break;
                 case "quit":
                     processQuit();
                     break;
@@ -168,6 +171,23 @@ public class Clevis {
 
         System.out.printf("%.2f %.2f %.2f %.2f%n",
                 boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]);
+    }
+
+    private void processShapeAt(String[] tokens){
+        if(tokens.length !=3){
+            throw new IllegalArgumentException("Invalid shapeat command format. Please enter: ShapeAt x y");
+        }
+        double[] PointXY = {Double.parseDouble(tokens[1]),Double.parseDouble(tokens[2])};
+
+        String targetShapeName = ShapeManager.ShapeAt(PointXY[1],PointXY[2]);
+
+        if (targetShapeName != null){
+            System.out.println("The shape at point (" + PointXY[1] + "," + PointXY[2] + ") is:" + targetShapeName + ".");
+        }
+        else{
+            System.out.println("There is no shape found at point (" + PointXY[1] + "," + PointXY[2] + ").");
+        }
+        
     }
 
     private void isGrouped(String name) {
