@@ -214,14 +214,15 @@ public class Clevis {
         }
     }
 
-    private void processQuit() {
-        System.out.println("Goodbye!");
-        isRunning = false;
-    }
-
     public void closeLogging() {
         if (logger != null)
             logger.close();
+    }
+    
+    private void processQuit() {
+        System.out.println("Goodbye!");
+        isRunning = false;
+        closeLogging();
     }
 
     public boolean isRunning() { return isRunning; }
