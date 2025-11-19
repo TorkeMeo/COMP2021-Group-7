@@ -155,15 +155,15 @@ public class ClevisTest {
     }
 
     @Test
+    public void testCloseLogging() {
+        clevis.closeLogging();
+        assertTrue(true);
+    }
+
+    @Test
     public void testQuitCommand() {
         assertTrue(clevis.isRunning());
         clevis.processCommand("quit");
         assertFalse(clevis.isRunning());
-    }
-
-    @Test
-    public void testCloseLogging() {
-        clevis.closeLogging();
-        assertTrue(true);
     }
 }
