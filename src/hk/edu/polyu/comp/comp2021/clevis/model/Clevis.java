@@ -36,16 +36,16 @@ public class Clevis {
         try {
             switch (tokens[0].toLowerCase()) {
                 case "rectangle":
-                    createRectangle(tokens);
+                    processRectangle(tokens);
                     break;
                 case "line":
-                    createLine(tokens);
+                    processLine(tokens);
                     break;
                 case "circle":
-                    createCircle(tokens);
+                    processCircle(tokens);
                     break;
                 case "square":
-                    createSquare(tokens);
+                    processSquare(tokens);
                     break;
                 case "group":
                     processGroup(tokens);
@@ -72,9 +72,9 @@ public class Clevis {
         } catch (Exception e) { System.out.println("Error: " + e.getMessage()); }
     }
 
-    private void createRectangle(String[] tokens) {
+    public void processRectangle(String[] tokens) {
         if (tokens.length != 6)
-            throw new IllegalArgumentException("Invalid rectangle command format. Please enter: rectangle name x y width height");
+            throw new IllegalArgumentException("Invalid rectangle command format. Usage: rectangle name x y width height");
 
         String n = tokens[1];
         double x = Double.parseDouble(tokens[2]);
@@ -82,14 +82,13 @@ public class Clevis {
         double w = Double.parseDouble(tokens[4]);
         double h = Double.parseDouble(tokens[5]);
 
-        Rectangle rectangle = new Rectangle(n, x, y, w, h);
-        shapeManager.addShape(rectangle);
+        shapeManager.createRectangle(n, x, y, w, h);
         System.out.println("Rectangle '" + n + "' created successfully");
     }
 
-    private void createLine(String[] tokens) {
+    public void processLine(String[] tokens) {
         if (tokens.length != 6)
-            throw new IllegalArgumentException("Invalid line command format. Please enter: line name x1 y1 x2 y2");
+            throw new IllegalArgumentException("Invalid line command format. Usage: line name x1 y1 x2 y2");
 
         String n = tokens[1];
         double x1 = Double.parseDouble(tokens[2]);
@@ -97,36 +96,33 @@ public class Clevis {
         double x2 = Double.parseDouble(tokens[4]);
         double y2 = Double.parseDouble(tokens[5]);
 
-        Line line = new Line(n, x1, y1, x2, y2);
-        shapeManager.addShape(line);
+        shapeManager.createLine(n, x1, y1, x2, y2);
         System.out.println("Line '" + n + "' created successfully");
     }
 
-    private void createCircle(String[] tokens) {
+    public void processCircle(String[] tokens) {
         if (tokens.length != 5)
-            throw new IllegalArgumentException("Invalid circle command format. Please enter: circle name centerX centerY radius");
+            throw new IllegalArgumentException("Invalid circle command format. Usage: circle name centerX centerY radius");
 
         String n = tokens[1];
         double x = Double.parseDouble(tokens[2]);
         double y = Double.parseDouble(tokens[3]);
         double r = Double.parseDouble(tokens[4]);
 
-        Circle circle = new Circle(n, x, y, r);
-        shapeManager.addShape(circle);
+        shapeManager.createCircle(n, x, y, r);
         System.out.println("Circle '" + n + "' created successfully");
     }
 
-    private void createSquare(String[] tokens) {
+    public void processSquare(String[] tokens) {
         if (tokens.length != 5)
-            throw new IllegalArgumentException("Invalid square command format. Please enter: square name x y sideLength");
+            throw new IllegalArgumentException("Invalid square command format. Usage: square name x y sideLength");
 
         String n = tokens[1];
         double x = Double.parseDouble(tokens[2]);
         double y = Double.parseDouble(tokens[3]);
         double l = Double.parseDouble(tokens[4]);
 
-        Square square = new Square(n, x, y, l);
-        shapeManager.addShape(square);
+        shapeManager.createSquare(n, x, y, l);
         System.out.println("Square '" + n + "' created successfully");
     }
 
@@ -197,7 +193,7 @@ public class Clevis {
         if(tokens.length != 3){
             throw new IllegalArgumentException("Invalid intersect command format. Please enter: intersect n1 n2");
         }
-        String[] shapeNames = {tokens[1],tokens[2]);
+        String[] shapeNames = (tokens[1],tokens[2]);
         if(ShapeManager.intersect(shapeNames[0],shapeNames[1]){
             System.out.println("Shape" + shapeNames[0] + "and" + shapeNames[1] + "intersect.");
         }
