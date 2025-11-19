@@ -194,6 +194,8 @@ public class Clevis {
             throw new IllegalArgumentException("Invalid intersect command format. Please enter: intersect n1 n2");
         }
         String[] shapeNames = {tokens[1],tokens[2]};
+        shapeNames[1].isGrouped;
+        shapeNames[2].isGrouped;
         if(ShapeManager.intersect(shapeNames[0],shapeNames[1])){
             System.out.println("Shape" + shapeNames[0] + "and" + shapeNames[1] + "intersect.");
         }
