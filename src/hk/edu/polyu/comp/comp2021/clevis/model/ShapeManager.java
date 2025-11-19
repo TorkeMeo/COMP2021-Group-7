@@ -11,6 +11,38 @@ public class ShapeManager {
         commandHistory = new ArrayList<>();
     }
 
+    public void createRectangle(String n, double x, double y, double w, double h) {
+        if (shapes.containsKey(n))
+            throw new IllegalArgumentException("Shape with name '" + n + "' already exists");
+
+        Rectangle rectangle = new Rectangle(n, x, y, w, h);
+        shapes.put(n, rectangle);
+    }
+
+    public void createLine(String n, double x1, double y1, double x2, double y2) {
+        if (shapes.containsKey(n))
+            throw new IllegalArgumentException("Shape with name '" + n + "' already exists");
+
+        Line line = new Line(n, x1, y1, x2, y2);
+        shapes.put(n, line);
+    }
+
+    public void createCircle(String n, double x, double y, double r) {
+        if (shapes.containsKey(n))
+            throw new IllegalArgumentException("Shape with name '" + n + "' already exists");
+
+        Circle circle = new Circle(n, x, y, r);
+        shapes.put(n, circle);
+    }
+
+    public void createSquare(String n, double x, double y, double l) {
+        if (shapes.containsKey(n))
+            throw new IllegalArgumentException("Shape with name '" + n + "' already exists");
+
+        Square square = new Square(n, x, y, l);
+        shapes.put(n, square);
+    }
+    
     public void addShape(Shape shape) {
         if (shapes.containsKey(shape.getName()))
             throw new IllegalArgumentException("Shape with name '" + shape.getName() + "' already exists");
