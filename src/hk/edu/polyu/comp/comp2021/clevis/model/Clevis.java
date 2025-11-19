@@ -74,7 +74,7 @@ public class Clevis {
 
     public void processRectangle(String[] tokens) {
         if (tokens.length != 6)
-            throw new IllegalArgumentException("Invalid rectangle command format. Usage: rectangle name x y width height");
+            throw new IllegalArgumentException("Invalid rectangle command format. Please enter: rectangle name x y width height");
 
         String n = tokens[1];
         double x = Double.parseDouble(tokens[2]);
@@ -88,7 +88,7 @@ public class Clevis {
 
     public void processLine(String[] tokens) {
         if (tokens.length != 6)
-            throw new IllegalArgumentException("Invalid line command format. Usage: line name x1 y1 x2 y2");
+            throw new IllegalArgumentException("Invalid line command format. Please enter: line name x1 y1 x2 y2");
 
         String n = tokens[1];
         double x1 = Double.parseDouble(tokens[2]);
@@ -102,7 +102,7 @@ public class Clevis {
 
     public void processCircle(String[] tokens) {
         if (tokens.length != 5)
-            throw new IllegalArgumentException("Invalid circle command format. Usage: circle name centerX centerY radius");
+            throw new IllegalArgumentException("Invalid circle command format. Please enter: circle name centerX centerY radius");
 
         String n = tokens[1];
         double x = Double.parseDouble(tokens[2]);
@@ -115,7 +115,7 @@ public class Clevis {
 
     public void processSquare(String[] tokens) {
         if (tokens.length != 5)
-            throw new IllegalArgumentException("Invalid square command format. Usage: square name x y sideLength");
+            throw new IllegalArgumentException("Invalid square command format. Please enter: square name x y sideLength");
 
         String n = tokens[1];
         double x = Double.parseDouble(tokens[2]);
@@ -128,7 +128,7 @@ public class Clevis {
 
     private void processGroup(String[] tokens) {
         if (tokens.length < 3) {
-            throw new IllegalArgumentException("Invalid group command format. Please enter: : group groupName shape1 shape2 ...");
+            throw new IllegalArgumentException("Invalid group command format. Please enter: group groupName shape1 shape2 ...");
         }
 
         String groupName = tokens[1];
@@ -140,7 +140,7 @@ public class Clevis {
 
     private void processUngroup(String[] tokens) {
         if (tokens.length != 2) {
-            throw new IllegalArgumentException("Invalid ungroup command format. Please enter: : ungroup name");
+            throw new IllegalArgumentException("Invalid ungroup command format. Please enter: ungroup name");
         }
 
         String groupName = tokens[1];
@@ -150,7 +150,7 @@ public class Clevis {
 
     private void processDelete(String[] tokens) {
         if (tokens.length != 2) {
-            throw new IllegalArgumentException("Invalid delete command format. Please enter: : delete name");
+            throw new IllegalArgumentException("Invalid delete command format. Please enter: delete name");
         }
 
         String name = tokens[1];
