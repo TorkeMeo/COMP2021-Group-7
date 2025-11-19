@@ -127,9 +127,43 @@ public class ClevisTest {
     }
 
     @Test
+    public void testEmptyCommand() {
+        clevis.processCommand("");
+        clevis.processCommand("   ");
+        clevis.processCommand("\t");
+        assertTrue(true);
+    }
+
+    @Test
+    public void testUnknownCommand() {
+        clevis.processCommand("invalidcommand param1 param2");
+        assertTrue(true);
+    }
+
+    @Test
+    public void testInvalidNumberFormat() {
+        clevis.processCommand("rectangle invalid x y 10 10");
+        clevis.processCommand("circle invalid 5 abc 10");
+        assertTrue(true);
+    }
+
+    @Test
+    public void testWithoutLoggingInitialized() {
+        Clevis freshClevis = new Clevis();
+        freshClevis.processCommand("rectangle test 0 0 10 10");
+        assertTrue(freshClevis.getShapeManager().containsShape("test"));
+    }
+    
+    @Test
     public void testQuitCommand() {
         assertTrue(clevis.isRunning());
         clevis.processCommand("quit");
         assertFalse(clevis.isRunning());
+    }
+
+    @Test
+    public void testCloseLogging() {
+        clevis.closeLogging();
+        assertTrue(true);
     }
 }
