@@ -178,13 +178,13 @@ public class Clevis {
         }
         double[] PointXY = {Double.parseDouble(tokens[1]),Double.parseDouble(tokens[2])};
 
-        String targetShapeName = ShapeManager.shapeAt(PointXY[0],PointXY[1]);
+        String targetShapeName = shapeManager.shapeAt(PointXY[0],PointXY[1]);
 
         if (targetShapeName != null){
-            System.out.println("The shape at point (" + PointXY[1] + "," + PointXY[2] + ") is:" + targetShapeName + ".");
+            System.out.println("The shape at point (" + PointXY[0] + "," + PointXY[1] + ") is:" + targetShapeName + ".");
         }
         else{
-            System.out.println("There is no shape found at point (" + PointXY[1] + "," + PointXY[2] + ").");
+            System.out.println("There is no shape found at point (" + PointXY[0] + "," + PointXY[1] + ").");
         }
         
     }
@@ -196,11 +196,11 @@ public class Clevis {
         String[] shapeNames = {tokens[1],tokens[2]};
         isGrouped(shapeNames[0]);
         isGrouped(shapeNames[1]);
-        if(ShapeManager.intersect(shapeNames[0],shapeNames[1])){
-            System.out.println("Shape" + shapeNames[0] + "and" + shapeNames[1] + "intersect.");
+        if(shapeManager.intersect(shapeNames[0],shapeNames[1])){
+            System.out.println("Shape " + shapeNames[0] + " and " + shapeNames[1] + " intersect.");
         }
         else{
-            System.out.println("Shape" + shapeNames[0] + "and" + shapeNames[1] + "not intersect.");
+            System.out.println("Shape " + shapeNames[0] + " and " + shapeNames[1] + " not intersect.");
         }
     }
 
