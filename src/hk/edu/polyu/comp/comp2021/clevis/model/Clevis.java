@@ -178,7 +178,7 @@ public class Clevis {
         }
         double[] PointXY = {Double.parseDouble(tokens[1]),Double.parseDouble(tokens[2])};
 
-        String targetShapeName = ShapeManager.shapeAt(PointXY[1],PointXY[2]);
+        String targetShapeName = ShapeManager.shapeAt(PointXY[0],PointXY[1]);
 
         if (targetShapeName != null){
             System.out.println("The shape at point (" + PointXY[1] + "," + PointXY[2] + ") is:" + targetShapeName + ".");
@@ -194,8 +194,8 @@ public class Clevis {
             throw new IllegalArgumentException("Invalid intersect command format. Please enter: intersect n1 n2");
         }
         String[] shapeNames = {tokens[1],tokens[2]};
-        shapeNames[1].isGrouped;
-        shapeNames[2].isGrouped;
+        isGrouped(shapeNames[0]);
+        isGrouped(shapeNames[1]);
         if(ShapeManager.intersect(shapeNames[0],shapeNames[1])){
             System.out.println("Shape" + shapeNames[0] + "and" + shapeNames[1] + "intersect.");
         }
