@@ -166,4 +166,217 @@ public class ClevisTest {
         clevis.processCommand("quit");
         assertFalse(clevis.isRunning());
     }
+
+    //Fenggang add. Needing select and improve.
+    @Test
+    public void testProcessIntersectOverlappingShapes() {
+        clevis.processCommand("rectangle r1 0 0 20 20");
+        clevis.processCommand("rectangle r2 10 10 20 20");
+        clevis.processCommand("intersect r1 r2");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Shape r1 and r2 intersect"));
+    }
+    
+    @Test
+    public void testProcessIntersectNonOverlappingShapes() {
+        clevis.processCommand("rectangle r1 0 0 10 10");
+        clevis.processCommand("rectangle r2 50 50 10 10");
+        clevis.processCommand("intersect r1 r2");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Shape r1 and r2 do not intersect"));
+    }
+    
+    @Test
+    public void testProcessIntersectSameShape() {
+        clevis.processCommand("rectangle r1 0 0 10 10");
+        clevis.processCommand("intersect r1 r1");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Shape r1 and r1 intersect"));
+    }
+    
+    @Test
+    public void testProcessIntersectDifferentShapeTypes() {
+        clevis.processCommand("circle c1 10 10 5");
+        clevis.processCommand("rectangle r1 12 12 10 10");
+        clevis.processCommand("intersect c1 r1");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("intersect"));
+    }
+    
+    @Test
+    public void testProcessIntersectWithLine() {
+        clevis.processCommand("line l1 0 0 20 20");
+        clevis.processCommand("rectangle r1 5 5 10 10");
+        clevis.processCommand("intersect l1 r1");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("intersect"));
+    }
+    
+    @Test
+    public void testProcessIntersectNonExistentFirstShape() {
+        clevis.processCommand("rectangle r1 0 0 10 10");
+        clevis.processCommand("intersect nonexistent r1");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Error:"));
+        assertTrue(output.contains("not found"));
+    }
+    
+    @Test
+    public void testProcessIntersectNonExistentSecondShape() {
+        clevis.processCommand("rectangle r1 0 0 10 10");
+        clevis.processCommand("intersect r1 nonexistent");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Error:"));
+        assertTrue(output.contains("not found"));
+    }
+    
+    @Test
+    public void testProcessIntersectGroupedShape() {
+        clevis.processCommand("rectangle r1 0 0 10 10");
+        clevis.processCommand("circle c1 5 5 3");
+        clevis.processCommand("group g1 r1 c1");
+        
+        clevis.processCommand("intersect r1 c1");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Error:"));
+        assertTrue(output.contains("is grouped"));
+    }
+    
+    @Test
+    public void testProcessIntersectInvalidCommandFormat() {
+        clevis.processCommand("intersect");
+        clevis.processCommand("intersect r1");
+        clevis.processCommand("intersect r1 r2 r3");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Error:"));
+        assertTrue(output.contains("Invalid intersect command format"));
+    }
+    //Fenggang add. Needing select and improve.
+    @Test
+    public void testProcessShapeAtPointInsideShape() {
+        clevis.processCommand("rectangle r1 10 10 30 30");
+        clevis.processCommand("shapeat 15 15");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("The shape at point (15.0, 15.0) is: r1"));
+    }
+    
+    @Test
+    public void testProcessShapeAtPointOnBoundary() {
+        clevis.processCommand("rectangle r1 10 10 30 30");
+        clevis.processCommand("shapeat 10 10");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("The shape at point (10.0, 10.0) is: r1"));
+    }
+    
+    @Test
+    public void testProcessShapeAtPointOutsideShape() {
+        clevis.processCommand("rectangle r1 10 10 30 30");
+        clevis.processCommand("shapeat 5 5");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("There is no shape found at point (5.0, 5.0)"));
+    }
+    
+    @Test
+    public void testProcessShapeAtWithMultipleShapes() {
+        clevis.processCommand("rectangle r1 0 0 20 20");
+        clevis.processCommand("circle c1 10 10 5");
+        
+        clevis.processCommand("shapeat 10 10");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("The shape at point (10.0, 10.0) is: c1"));
+    }
+    
+    @Test
+    public void testProcessShapeAtWithNoShapes() {
+        clevis.processCommand("shapeat 10 10");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("There is no shape found at point (10.0, 10.0)"));
+    }
+    
+    @Test
+    public void testProcessShapeAtDifferentShapeTypes() {
+        clevis.processCommand("circle c1 25 25 10");
+        clevis.processCommand("shapeat 25 25");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("The shape at point (25.0, 25.0) is: c1"));
+    }
+    
+    @Test
+    public void testProcessShapeAtWithLine() {
+        clevis.processCommand("line l1 0 0 50 50");
+        clevis.processCommand("shapeat 25 25");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("The shape at point (25.0, 25.0) is: l1"));
+    }
+    
+    @Test
+    public void testProcessShapeAtWithSquare() {
+        clevis.processCommand("square s1 5 5 20");
+        clevis.processCommand("shapeat 10 10");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("The shape at point (10.0, 10.0) is: s1"));
+    }
+    
+    @Test
+    public void testProcessShapeAtInvalidCommandFormat() {
+        clevis.processCommand("shapeat");
+        clevis.processCommand("shapeat 10");
+        clevis.processCommand("shapeat 10 20 30");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Error:"));
+        assertTrue(output.contains("Invalid shapeat command format"));
+    }
+    
+    @Test
+    public void testProcessShapeAtWithInvalidNumbers() {
+        clevis.processCommand("shapeat x y"); // 非数字参数
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("Error:"));
+    }
+    
+    @Test
+    public void testProcessShapeAtSkipGroups() {
+        clevis.processCommand("rectangle r1 0 0 10 10");
+        clevis.processCommand("circle c1 5 5 3");
+        clevis.processCommand("group g1 r1 c1");
+        
+        clevis.processCommand("shapeat 5 5");
+        
+        String output = outputStream.toString();
+        assertTrue(output.contains("There is no shape found at point (5.0, 5.0)"));
+    }
+    
+    @Test
+    public void testProcessShapeAtComplexScenario() {
+        clevis.processCommand("rectangle background 0 0 100 100");
+        clevis.processCommand("circle middle 25 25 15");
+        clevis.processCommand("square front 20 20 10");
+        
+        clevis.processCommand("shapeat 15 15");
+        String output = outputStream.toString();
+        
+        clevis.processCommand("shapeat 25 25");
+        output = outputStream.toString();
+        assertTrue(output.contains("The shape at point (25.0, 25.0) is: front"));
+    }
+    //Fenggang add done.
 }
