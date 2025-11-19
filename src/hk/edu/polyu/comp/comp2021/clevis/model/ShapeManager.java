@@ -114,6 +114,9 @@ public class ShapeManager {
     public String shapeAt(double x,double y ){
         List<Shape> ShapeListAll =getAllShapes();
         for(Shape shape : ShapeListAll){
+            if(shape.isGroup){
+                continue;
+            }
             if(shape.containsPoint(x,y)){
                 return shape.getName();
             }
